@@ -1,0 +1,35 @@
+name: tag and prerelease develop
+
+on:
+  workflow_call:      
+
+jobs:
+
+  # create release candidate (rc) tag when merged to develop branch
+  tag_prerelease:
+    runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/develop' }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: bump version and push tag
+        id: tag
+        uses: mathieudutour/github-tag-action@v6.1
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          pre_release_branches: develop
+          append_to_pre_release_tag: rc
+
+  # create a non-production ready release
+  prerelease:
+    runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/develop' }}
+    needs: tag_prerelease
+    steps:
+      - uses: actions/checkout@v3
+      - name: create github prerelease
+        uses: ncipollo/release-action@v1
+        with:
+          prerelease: true
+          tag: ${{ needs.tag_prerelease.tag.outputs.new_tag }}
+          name: Release ${{ needs.tag_prerelease.tag.outputs.new_tag }}
+          body: ${{ needs.tag_prerelease.tag.outputs.changelog }}
