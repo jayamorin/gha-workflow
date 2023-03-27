@@ -8,7 +8,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
       - name: kustomize setup
         uses: imranismail/setup-kustomize@v2
         with:
