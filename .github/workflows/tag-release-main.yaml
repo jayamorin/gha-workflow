@@ -10,7 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.ref == 'refs/heads/main' }}
     steps:
-      - uses: actions/checkout@v3
       - name: bump version and push tag
         id: tag
         uses: mathieudutour/github-tag-action@v6.1
@@ -24,7 +23,6 @@ jobs:
     if: ${{ github.ref == 'refs/heads/main' }}
     needs: tag_release
     steps:
-      - uses: actions/checkout@v3
       - name: create github release
         uses: ncipollo/release-action@v1
         with:
