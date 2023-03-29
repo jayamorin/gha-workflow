@@ -2,7 +2,10 @@ name: tag and prerelease develop
 
 on:
   workflow_call:      
-
+     secrets:
+       GH_TOKEN:
+         required: true
+         
 jobs:
 
   # create release candidate (rc) tag when merged to develop branch
