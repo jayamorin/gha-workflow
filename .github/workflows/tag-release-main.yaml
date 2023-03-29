@@ -2,6 +2,9 @@ name: tag and release main
 
 on:
   workflow_call:
+     secrets:
+       GH_TOKEN:
+         required: true
 
 jobs:
 
