@@ -5,9 +5,6 @@ on:
      secrets:
        GH_TOKEN:
          required: true
-  push:
-    tags:
-    - '*'
 
 jobs:
 
@@ -32,11 +29,10 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
       - name: create github release
         uses: ncipollo/release-action@v1
         with:
+          token: ${{ secrets.GH_TOKEN }}
           tag: ${{ needs.tag_release.outputs.new_tag }}
           name: Release ${{ needs.tag_release.outputs.new_tag }}
           body: ${{ needs.tag_release.outputs.changelog }}
