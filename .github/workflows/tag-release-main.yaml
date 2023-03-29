@@ -5,7 +5,10 @@ on:
      secrets:
        GH_TOKEN:
          required: true
-
+  push:
+    tags:
+    - '*'
+    
 jobs:
 
   # create release tag when merged to main branch
