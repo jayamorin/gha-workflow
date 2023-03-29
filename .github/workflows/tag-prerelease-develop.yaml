@@ -16,7 +16,6 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
       - name: bump version and push tag
-        id: tag
         uses: mathieudutour/github-tag-action@v6.1
         with:
           github_token: ${{ secrets.GH_TOKEN }}
@@ -35,6 +34,6 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           prerelease: true
-          tag: ${{ needs.tag_prerelease.tag.outputs.new_tag }}
-          name: Release ${{ needs.tag_prerelease.tag.outputs.new_tag }}
-          body: ${{ needs.tag_prerelease.tag.outputs.changelog }}
+          tag: ${{ needs.tag_prerelease.outputs.new_tag }}
+          name: Release ${{ needs.tag_prerelease.outputs.new_tag }}
+          body: ${{ needs.tag_prerelease.outputs.changelog }}
