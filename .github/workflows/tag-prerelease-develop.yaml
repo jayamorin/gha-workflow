@@ -26,7 +26,6 @@ jobs:
   # create a non-production ready release
   prerelease:
     runs-on: ubuntu-latest
-    if: ${{ github.ref == 'refs/heads/develop' }}
     needs: tag_prerelease
     steps:
       - name: checkout

@@ -25,7 +25,6 @@ jobs:
   # create production ready release
   release:
     runs-on: ubuntu-latest
-    if: ${{ github.ref == 'refs/heads/main' }}
     needs: tag_release
     steps:
       - name: checkout
